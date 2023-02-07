@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify, request
 from main import db
 from models.cards import Card
 
-
+# create the controller
 cards = Blueprint('cards', __name__, url_prefix="/cards")
-### working on CONTROLLERS AND BLUEPRINTS - NEXT: APPLY BLUEPRINT TO APP
+
 
 # The GET routes endpoint
 @cards.route("/", methods=["GET"])
