@@ -30,6 +30,9 @@ def create_app():
     bcrypt.init_app(app)
     jwt.init_app(app)
 
+    from commands import db_commands
+    app.register_blueprint(db_commands)
+
     # import the controllers and activate the blueprints
     from controllers import registerable_controllers
 

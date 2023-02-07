@@ -14,6 +14,7 @@ def create_db():
     db.create_all()
     print("Tables created")
 
+
 @db_commands .cli.command("seed")
 def seed_db():
     # create the card object
@@ -55,6 +56,7 @@ def seed_db():
     # commit the changes
     db.session.commit()
     print("Table seeded") 
+
 
 @db_commands .cli.command("drop")
 def drop_db():
