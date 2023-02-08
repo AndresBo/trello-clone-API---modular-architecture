@@ -62,3 +62,5 @@ def seed_db():
 def drop_db():
     db.drop_all()
     print("Tables dropped") 
+
+
