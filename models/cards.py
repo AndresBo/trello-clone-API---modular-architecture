@@ -11,4 +11,5 @@ class Card(db.Model):
     date = db.Column(db.Date())
     status = db.Column(db.String())
     priority = db.Column(db.String())
+    # Foreign key for one-to-many users to cards
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"),nullable=False)
