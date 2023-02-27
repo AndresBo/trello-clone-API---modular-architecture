@@ -17,30 +17,7 @@ def create_db():
 
 @db_commands .cli.command("seed")
 def seed_db():
-    # create the card object
-    card1 = Card(
-        # set the attributes, not the id, SQLAlchemy will manage that for us
-        title = "Start the project",
-        description = "Stage 1, creating the database",
-        status = "To Do",
-        priority = "High",
-        date = date.today()
-    )
-    # Add the object as a new row to the table
-    db.session.add(card1)
-
-    card2 = Card(
-        # set the attributes, not the id, SQLAlchemy will manage that for us
-        title = "SQLAlchemy and Marshmallow",
-        description = "Stage 2, integrate both modules in the project",
-        status = "Ongoing",
-        priority = "High",
-        date = date.today()
-    )
-    # Add the object as a new row to the table
-    db.session.add(card2)
-
-
+    # Create the users first as user_id is used as a foreign key in Card model:
     admin_user = User(
         email = "admin@email.com",
         password = bcrypt.generate_password_hash("password123").decode("utf-8"),
@@ -53,14 +30,43 @@ def seed_db():
         password = bcrypt.generate_password_hash("123456").decode("utf-8")
     )
     db.session.add(user1)
+    # Extra commit to end transaction and generate the ids for the user
+    db.session.commit()
+   
+    # create the card object
+    card1 = Card(
+        # set the attributes, not the id, SQLAlchemy will manage that for us
+        title = "Start the project",
+        description = "Stage 1, creating the database",
+        status = "To Do",
+        priority = "High",
+        date = date.today(),
+        user_id = user1.id
+    )
+    # Add the object as a new row to the table
+    db.session.add(card1)
+
+    card2 = Card(
+        # set the attributes, not the id, SQLAlchemy will manage that for us
+        title = "SQLAlchemy and Marshmallow",
+        description = "Stage 2, integrate both modules in the project",
+        status = "Ongoing",
+        priority = "High",
+        date = date.today(),
+        # second option to add user_id
+        user = user1
+    )
+    # Add the object as a new row to the table
+    db.session.add(card2)
+
     # commit the changes
     db.session.commit()
-    print("Table seeded") 
+    print("Table seeded")
+####
+     
 
 
 @db_commands .cli.command("drop")
 def drop_db():
     db.drop_all()
     print("Tables dropped") 
-
-
