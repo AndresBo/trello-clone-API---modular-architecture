@@ -3,6 +3,7 @@ from main import db
 from models.cards import Card
 from models.users import User
 from schemas.card_schema import card_schema, cards_schema
+from schemas.user_schema import user_schema, users_schema
 from datetime import date
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -130,4 +131,13 @@ def search_cards():
 
     result = cards_schema.dump(cards_list)
     # return the data in JSON format
+    return jsonify(result)
+
+
+@cards.route("/users", methods=["GET"])
+def get_users():
+    # get all users from the database table
+    users_list= User.query.all()
+    # converts the users from the database into a JSON format and store them inr result
+    result = users_schema.dump(users_list)
     return jsonify(result)
