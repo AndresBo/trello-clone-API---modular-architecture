@@ -12,7 +12,7 @@ class User(db.Model):
         backref="user",
         cascade="all, delete"
     )
-    comments = db.relatioship(
+    comments = db.relationship(
         "Comment",
         backref="user",
         cascade="all,delete"
