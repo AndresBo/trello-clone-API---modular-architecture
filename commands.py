@@ -78,6 +78,7 @@ def seed_db():
         card = card1
     )
     db.session.add(comment2)
+    db.session.commit()
     print("Table seeded")
 ####
      
