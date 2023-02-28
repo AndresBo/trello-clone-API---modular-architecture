@@ -3,6 +3,7 @@ from flask import Blueprint
 from main import bcrypt
 from models.cards import Card
 from models.users import User
+from models.comments import Comment
 from datetime import date
 
 db_commands = Blueprint("db", __name__)
@@ -61,6 +62,22 @@ def seed_db():
 
     # commit the changes
     db.session.commit()
+
+    comment1 = Comment(
+        # set attributes, not the id, SQLAlchemy will manage that for us
+        message = "Create the database and users in Postgresql",
+        user = user1,
+        card = card1
+    )
+    # add the object as a new row to the table
+    db.session.add(comment1)
+
+    comment2 = Comment(
+        message = "Make sure you check the database authentication",
+        user = admin_user,
+        card = card1
+    )
+    db.session.add(comment2)
     print("Table seeded")
 ####
      

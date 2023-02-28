@@ -12,3 +12,8 @@ class User(db.Model):
         backref="user",
         cascade="all, delete"
     )
+    comments = db.relatioship(
+        "Comment",
+        backref="user",
+        cascade="all,delete"
+    )
